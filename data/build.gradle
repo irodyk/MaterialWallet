@@ -31,5 +31,6 @@ dependencies {
     implementation project(':domain')
 
     implementation dataLib.values()
+    annotationProcessor dataAnnotation.values()
     testImplementation dataTest.values()
 }
