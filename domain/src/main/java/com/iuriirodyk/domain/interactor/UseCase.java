@@ -15,43 +15,37 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Iurii Rodyk on 27.03.2018.
  */
 
-public abstract class UseCase<Q extends UseCase.RequestValues, P extends UseCase.ResponseValue> {
+public abstract class UseCase<Q, P> {
 
-private final ThreadExecutor threadExecutor;
-private final PostExecutionThread postExecutionThread;
-private final CompositeDisposable disposables;
+        private final ThreadExecutor threadExecutor;
+        private final PostExecutionThread postExecutionThread;
+        private final CompositeDisposable disposables;
 
-protected UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        this.threadExecutor = threadExecutor;
-        this.postExecutionThread = postExecutionThread;
-        this.disposables = new CompositeDisposable();
+        protected UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+                this.threadExecutor = threadExecutor;
+                this.postExecutionThread = postExecutionThread;
+                this.disposables = new CompositeDisposable();
         }
 
-protected abstract Observable<P> buildUseCaseObservable(Q requestValues);
+        protected abstract Observable<P> buildUseCaseObservable(Q requestValues);
 
-public void execute(DisposableObserver<P> observer, Q requestValues) {
-        Preconditions.checkNotNull(observer);
-final Observable<P> observable = buildUseCaseObservable(requestValues)
-        .subscribeOn(Schedulers.from(threadExecutor))
-        .observeOn(postExecutionThread.getScheduler());
-        addDisposable(observable.subscribeWith(observer));
+        public void execute(DisposableObserver<P> observer, Q requestValues) {
+                Preconditions.checkNotNull(observer);
+                final Observable<P> observable = buildUseCaseObservable(requestValues)
+                        .subscribeOn(Schedulers.from(threadExecutor))
+                        .observeOn(postExecutionThread.getScheduler());
+                addDisposable(observable.subscribeWith(observer));
         }
 
-public void dispose() {
-        if (!disposables.isDisposed()) {
-        disposables.dispose();
-        }
-        }
-
-private void addDisposable(Disposable disposable) {
-        Preconditions.checkNotNull(disposable);
-        Preconditions.checkNotNull(disposables);
-        disposables.add(disposable);
+        public void dispose() {
+                if (!disposables.isDisposed()) {
+                        disposables.dispose();
+                }
         }
 
-public interface RequestValues{
-}
-
-public interface ResponseValue{
-}
+        private void addDisposable(Disposable disposable) {
+                Preconditions.checkNotNull(disposable);
+                Preconditions.checkNotNull(disposables);
+                disposables.add(disposable);
+        }
 }
