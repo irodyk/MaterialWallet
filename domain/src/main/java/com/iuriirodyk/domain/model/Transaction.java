@@ -15,6 +15,7 @@ public abstract class Transaction {
 
     public enum Type { INCOMING, OUTGOING }
 
+    @NonNull public abstract String transId();
     @NonNull public abstract Type type();
     @NonNull public abstract String merchant();
     @NonNull public abstract String amount();
@@ -24,6 +25,7 @@ public abstract class Transaction {
     @NonNull public abstract Card card();
 
     public static Transaction create(
+            String transId,
             Type type,
             String merchant,
             String amount,
@@ -33,6 +35,7 @@ public abstract class Transaction {
             Card card
     ) {
         return new AutoValue_Transaction(
+                transId,
                 type,
                 merchant,
                 amount,

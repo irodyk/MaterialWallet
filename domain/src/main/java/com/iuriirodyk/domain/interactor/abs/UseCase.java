@@ -1,4 +1,4 @@
-package com.iuriirodyk.domain.interactor;
+package com.iuriirodyk.domain.interactor.abs;
 
 import com.iuriirodyk.domain.executor.PostExecutionThread;
 import com.iuriirodyk.domain.executor.ThreadExecutor;
