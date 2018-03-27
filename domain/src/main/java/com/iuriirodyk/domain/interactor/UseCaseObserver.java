@@ -1,4 +1,4 @@
-package com.iuriirodyk.domain;
+package com.iuriirodyk.domain.interactor;
 
 import io.reactivex.observers.DisposableObserver;
 
