@@ -6,6 +6,8 @@ import com.iuriirodyk.domain.interactor.abs.UseCase;
 import com.iuriirodyk.domain.model.User;
 import com.iuriirodyk.domain.repository.UserRepository;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
@@ -13,19 +15,16 @@ import io.reactivex.Observable;
  * Created by Iurii Rodyk on 27.03.2018.
  */
 
-public class FetchUser extends UseCase<Void, User> {
+public class GetUser extends UseCase<Void, User> {
 
-    private UserRepository userRepository;
+    @Inject UserRepository userRepository;
 
-    protected FetchUser(UserRepository userRepository,
-                        ThreadExecutor threadExecutor,
-                        PostExecutionThread postExecutionThread) {
+    @Inject GetUser(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.userRepository = userRepository;
     }
 
     @Override
-    protected Observable<User> buildUseCaseObservable(Void requestValues) {
+    protected Observable<User> buildUseCaseObservable(Void aVoid) {
         return userRepository.user();
     }
 }

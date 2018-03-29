@@ -8,6 +8,8 @@ import com.iuriirodyk.domain.repository.CardRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
@@ -15,19 +17,16 @@ import io.reactivex.Observable;
  * Created by Iurii Rodyk on 27.03.2018.
  */
 
-public class FetchCards extends UseCase<Void, List<Card>> {
+public class GetCards extends UseCase<Void, List<Card>> {
 
-    private CardRepository cardRepository;
+    @Inject CardRepository cardRepository;
 
-    protected FetchCards(CardRepository cardRepository,
-                         ThreadExecutor threadExecutor,
-                         PostExecutionThread postExecutionThread) {
+    @Inject GetCards(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.cardRepository = cardRepository;
     }
 
     @Override
-    protected Observable<List<Card>> buildUseCaseObservable(Void requestValues) {
+    protected Observable<List<Card>> buildUseCaseObservable(Void aVoid) {
         return cardRepository.cards();
     }
 }

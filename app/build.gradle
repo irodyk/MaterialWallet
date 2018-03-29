@@ -52,4 +52,6 @@ dependencies {
     annotationProcessor appAnnotation.values()
     testImplementation appTest.values()
     androidTestImplementation appAndroidTest.values()
+
+    implementation appDev.values()
 }

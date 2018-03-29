@@ -8,6 +8,8 @@ import com.iuriirodyk.domain.repository.TransactionRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
@@ -15,15 +17,12 @@ import io.reactivex.Observable;
  * Created by Iurii Rodyk on 27.03.2018.
  */
 
-public class FetchTransactions extends UseCase<String, List<Transaction>> {
+public class GetTransactions extends UseCase<String, List<Transaction>> {
 
-    private TransactionRepository transactionRepository;
+    @Inject TransactionRepository transactionRepository;
 
-    protected FetchTransactions(TransactionRepository transactionRepository,
-                                ThreadExecutor threadExecutor,
-                                PostExecutionThread postExecutionThread) {
+    @Inject GetTransactions(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.transactionRepository = transactionRepository;
     }
 
     @Override

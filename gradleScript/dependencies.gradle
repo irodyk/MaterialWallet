@@ -17,6 +17,7 @@ ext {
     rxJavaVersion = '2.1.10'
     rxAndroidVersion = '2.0.2'
     autovalueVersion = '1.5.4'
+    AAVersion = '4.4.0'
 
     //test
     jUnitVersion = '4.12'
@@ -40,7 +41,8 @@ ext {
                     rxJava                  :    "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
                     rxAndroid               :    "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
                     autovalue               :    "com.google.auto.value:auto-value:${autovalueVersion}",
-                    javaxAnnotation         :    "javax.annotation:jsr250-api:${javaxAnnotationVersion}"
+                    javaxAnnotation         :    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+                    androidAnnotations      :    "org.androidannotations:androidannotations-api:${AAVersion}"
             ],
 
             //Annotation Processors
@@ -48,6 +50,7 @@ ext {
                     daggerCompiler          :    "com.google.dagger:dagger-compiler:${daggerVersion}",
                     butterknifeCompiler     :    "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
                     autovalueProcessor      :    "com.google.auto.value:auto-value:${autovalueVersion}",
+                    androidAnProcessor      :    "org.androidannotations:androidannotations:${AAVersion}"
             ],
 
             //Testing
@@ -95,7 +98,6 @@ ext {
                     javaxAnnotation         :    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
                     javaxInject             :    "javax.inject:javax.inject:${javaxInjectVersion}",
                     autovalue               :    "com.google.auto.value:auto-value:${autovalueVersion}",
-                    androidAnnotations      :    "com.android.support:support-annotations:${supportLibVersion}"
             ],
 
             //Annotation Processors
