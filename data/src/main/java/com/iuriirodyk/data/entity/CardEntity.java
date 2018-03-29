@@ -1,7 +1,6 @@
 package com.iuriirodyk.data.entity;
 
 import com.google.auto.value.AutoValue;
-import com.iuriirodyk.domain.model.Issuer;
 
 import io.reactivex.annotations.NonNull;
 
@@ -16,7 +15,8 @@ public abstract class CardEntity {
     @NonNull public abstract String holder();
     @NonNull public abstract String pan();
     @NonNull public abstract String expiry();
-    @NonNull public abstract Issuer issuer();
+    @NonNull public abstract IssuerEntity issuer();
+    @NonNull public abstract String currency();
     @NonNull public abstract String balanceTotal();
     @NonNull public abstract String balanceAvlble();
     @NonNull public abstract String balanceBlocked();
@@ -26,11 +26,12 @@ public abstract class CardEntity {
             String holder,
             String pan,
             String expiry,
-            Issuer issuer,
+            IssuerEntity issuer,
             String cardImagePath,
             String balanceTotal,
             String balanceAvlble,
-            String balanceBlocked
+            String balanceBlocked,
+            String currency
     ) {
         return new AutoValue_CardEntity(
                 holder,
@@ -40,7 +41,8 @@ public abstract class CardEntity {
                 cardImagePath,
                 balanceTotal,
                 balanceAvlble,
-                balanceBlocked
+                balanceBlocked,
+                currency
         );
     }
 }

@@ -1,8 +1,10 @@
 package com.iuriirodyk.data.entity.mapper;
 
 import com.iuriirodyk.data.entity.CardEntity;
+import com.iuriirodyk.data.entity.IssuerEntity;
 import com.iuriirodyk.data.entity.TransactionEntity;
 import com.iuriirodyk.domain.model.Card;
+import com.iuriirodyk.domain.model.Issuer;
 import com.iuriirodyk.domain.model.Transaction;
 
 import java.util.ArrayList;
@@ -22,18 +24,26 @@ public class TransactionEntityDataMapper implements Mapper<TransactionEntity, Tr
 
     @Override
     public Transaction mapFromEntity(TransactionEntity e) {
+        Issuer issuer = Issuer.create(
+                e.card().issuer().issuerName(),
+                e.card().issuer().logoImagePath()
+        );
         Card card = Card.create(e.card().holder(), e.card().pan(), e.card().expiry(),
-                e.card().issuer(), e.card().cardImagePath(), e.card().balanceTotal(),
-                e.card().balanceAvlble(), e.card().balanceBlocked());
+                issuer, e.card().cardImagePath(), e.card().balanceTotal(),
+                e.card().balanceAvlble(), e.card().balanceBlocked(), e.currency());
         return Transaction.create(e.transId(), Transaction.Type.valueOf(e.type()), e.merchant(), e.amount(), e.currency(),
-                                    e.balanceAfter(), e.date(), card);
+                e.balanceAfter(), e.date(), card);
     }
 
     @Override
     public TransactionEntity mapToEntity(Transaction e) {
+        IssuerEntity issuerEntity = IssuerEntity.create(
+                e.card().issuer().issuerName(),
+                e.card().issuer().logoImagePath()
+        );
         CardEntity card = CardEntity.create(e.card().holder(), e.card().pan(), e.card().expiry(),
-                e.card().issuer(), e.card().cardImagePath(), e.card().balanceTotal(),
-                e.card().balanceAvlble(), e.card().balanceBlocked());
+                issuerEntity, e.card().cardImagePath(), e.card().balanceTotal(),
+                e.card().balanceAvlble(), e.card().balanceBlocked(), e.currency());
         return TransactionEntity.create(e.transId(), e.type().name(), e.merchant(), e.amount(), e.currency(),
                 e.balanceAfter(), e.date(), card);
     }

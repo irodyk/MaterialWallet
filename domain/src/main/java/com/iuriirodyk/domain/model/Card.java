@@ -16,6 +16,7 @@ public abstract class Card {
     @NonNull public abstract String pan();
     @NonNull public abstract String expiry();
     @NonNull public abstract Issuer issuer();
+    @NonNull public abstract String currency();
     @NonNull public abstract String balanceTotal();
     @NonNull public abstract String balanceAvlble();
     @NonNull public abstract String balanceBlocked();
@@ -29,7 +30,8 @@ public abstract class Card {
             String cardImagePath,
             String balanceTotal,
             String balanceAvlble,
-            String balanceBlocked
+            String balanceBlocked,
+            String currency
     ) {
         return new AutoValue_Card(
                 holder,
@@ -39,7 +41,8 @@ public abstract class Card {
                 cardImagePath,
                 balanceTotal,
                 balanceAvlble,
-                balanceBlocked
+                balanceBlocked,
+                currency
         );
     }
 }

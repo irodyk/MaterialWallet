@@ -28,6 +28,6 @@ public class TransactionDataRepository implements TransactionRepository {
     @Override
     public Observable<List<Transaction>> transactions(String cardPan) {
         TransactionDataStore transactionDataStore = commonDataStoreFactory.createTransactionDataStore();
-        return transactionDataStore.transactionEntities().map(mapper::transactionListFromEntity);
+        return transactionDataStore.transactionEntities(cardPan).map(mapper::transactionListFromEntity);
     }
 }

@@ -1,6 +1,5 @@
 package com.iuriirodyk.domain.model;
 
-import com.google.auto.value.AutoOneOf;
 import com.google.auto.value.AutoValue;
 
 import io.reactivex.annotations.NonNull;
@@ -13,7 +12,20 @@ import io.reactivex.annotations.NonNull;
 @AutoValue
 public abstract class Transaction {
 
-    public enum Type { INCOMING, OUTGOING }
+    public enum Type {
+        INCOMING("Incoming"),
+        OUTGOING("Outgoing");
+
+        String type;
+
+        Type(String type) {
+            this.type = type;
+        }
+
+        String type(){
+            return type;
+        }
+    }
 
     @NonNull public abstract String transId();
     @NonNull public abstract Type type();

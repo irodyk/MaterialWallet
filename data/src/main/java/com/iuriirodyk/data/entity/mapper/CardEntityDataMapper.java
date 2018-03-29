@@ -1,7 +1,9 @@
 package com.iuriirodyk.data.entity.mapper;
 
 import com.iuriirodyk.data.entity.CardEntity;
+import com.iuriirodyk.data.entity.IssuerEntity;
 import com.iuriirodyk.domain.model.Card;
+import com.iuriirodyk.domain.model.Issuer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +22,16 @@ public class CardEntityDataMapper implements Mapper<CardEntity, Card> {
 
     @Override
     public Card mapFromEntity(CardEntity e) {
-        return Card.create(e.holder(), e.pan(), e.expiry(), e.issuer(), e.cardImagePath(), e.balanceTotal(),
-                            e.balanceAvlble(), e.balanceBlocked());
+        Issuer issuer = Issuer.create(e.issuer().issuerName(), e.issuer().logoImagePath());
+        return Card.create(e.holder(), e.pan(), e.expiry(), issuer, e.cardImagePath(), e.balanceTotal(),
+                            e.balanceAvlble(), e.balanceBlocked(), e.currency());
     }
 
     @Override
     public CardEntity mapToEntity(Card e) {
-        return CardEntity.create(e.holder(), e.pan(), e.expiry(), e.issuer(), e.cardImagePath(), e.balanceTotal(),
-                e.balanceAvlble(), e.balanceBlocked());
+        IssuerEntity issuerEntity = IssuerEntity.create(e.issuer().issuerName(), e.issuer().logoImagePath());
+        return CardEntity.create(e.holder(), e.pan(), e.expiry(), issuerEntity, e.cardImagePath(), e.balanceTotal(),
+                e.balanceAvlble(), e.balanceBlocked(), e.currency());
     }
 
     public List<Card> cardListFromEntity(List<CardEntity> entities){

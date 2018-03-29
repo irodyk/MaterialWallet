@@ -18,6 +18,7 @@ public interface TransactionDataStore {
 
     /**
      * Get an {@link Observable} which will emit a list of {@link TransactionEntity}
+     * @param cardPan - card number to present transaction list for.
      */
-    Observable<List<TransactionEntity>> transactionEntities();
+    Observable<List<TransactionEntity>> transactionEntities(String cardPan);
 }
