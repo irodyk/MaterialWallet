@@ -1,14 +1,11 @@
 package com.iuriirodyk.materialwallet.ui.fragment;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.iuriirodyk.materialwallet.R;
@@ -48,14 +45,11 @@ public class CardViewFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        showCard();
     }
 
     @AfterViews
     void showCard(){
         card = CardViewModel.fromExtras(getArguments());
-
         loadCardImage();
     }
 

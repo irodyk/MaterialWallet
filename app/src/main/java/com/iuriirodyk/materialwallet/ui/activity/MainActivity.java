@@ -4,12 +4,11 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,10 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iuriirodyk.domain.interactor.GetCards;
-import com.iuriirodyk.domain.interactor.GetUser;
-import com.iuriirodyk.domain.model.Card;
-import com.iuriirodyk.domain.model.User;
 import com.iuriirodyk.materialwallet.R;
 import com.iuriirodyk.materialwallet.di.component.ApplicationComponent;
 import com.iuriirodyk.materialwallet.di.component.CardComponent;
@@ -29,11 +24,11 @@ import com.iuriirodyk.materialwallet.di.component.DaggerTransactionComponent;
 import com.iuriirodyk.materialwallet.di.component.DaggerUserComponent;
 import com.iuriirodyk.materialwallet.di.component.TransactionComponent;
 import com.iuriirodyk.materialwallet.di.component.UserComponent;
+import com.iuriirodyk.materialwallet.presenter.HomePresenter;
 import com.iuriirodyk.materialwallet.ui.adapter.CardPagerAdapter;
+import com.iuriirodyk.materialwallet.view.HomeView;
 import com.iuriirodyk.materialwallet.viewmodel.CardViewModel;
 import com.iuriirodyk.materialwallet.viewmodel.UserViewModel;
-import com.iuriirodyk.materialwallet.viewmodel.mapper.CardViewModelMapper;
-import com.iuriirodyk.materialwallet.viewmodel.mapper.UserViewModelMapper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -53,26 +48,17 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import io.reactivex.observers.DisposableObserver;
-
 @EActivity(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements HomeView {
 
     private UserComponent userComponent;
     private CardComponent cardComponent;
     private TransactionComponent transactionComponent;
 
-    private UserViewModel user;
+    @Inject HomePresenter presenter;
 
     @ViewById(R.id.root_layout)
     RelativeLayout rootView;
-
-    @Inject GetUser getUser;
-    @Inject GetCards getCards;
-
-    @Inject UserViewModelMapper userViewModelMapper;
-    @Inject CardViewModelMapper cardViewModelMapper;
-
 
     @ViewById(R.id.iv_user_photo)
     ImageView ivUserPhoto;
@@ -103,43 +89,30 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getUserComponent().inject(this);
 
-        executeCases();
+        presenter.setView(this);
+        presenter.getCurrentUser();
+        presenter.getEnrolledCards();
     }
 
-    void executeCases(){
-        getUser.execute(new DisposableObserver<User>() {
-            @Override
-            public void onNext(User user) {
-                MainActivity.this.user = userViewModelMapper.mapToViewModel(user);
-            }
-            @Override
-            public void onError(Throwable e) {}
-            @Override
-            public void onComplete() {
-                String greeting = "Hello, " + user.name() + "!";
-                tvUserGreeting.setText(greeting);
-                loadUserImage();
-            }
-        }, null);
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
 
-        getCards.execute(new DisposableObserver<List<Card>>() {
-            @Override
-            public void onNext(List<Card> cards) {
-                List<CardViewModel> cardViewModels = cardViewModelMapper.cardListToViewModel(cards);
+        Drawable background = rootView.getBackground();
+        int color = COLORS[0];
+        if (background instanceof ColorDrawable)
+            color = ((ColorDrawable) background).getColor();
+        savedInstanceState.putInt("bg_color", color);
+    }
 
-                initCardViewPager(cardViewModels);
-            }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        }, null);
+        int color = savedInstanceState.getInt("bg_color");
+        if(color != 0){
+            rootView.setBackgroundColor(color);
+        }
     }
 
     @AfterViews
@@ -154,9 +127,9 @@ public class MainActivity extends BaseActivity {
     }
 
     @Background
-    void loadUserImage(){
+    void loadUserImage(String path){
         try {
-            InputStream is = getAssets().open(user.photoPath());
+            InputStream is = getAssets().open(path);
             Bitmap bmp = BitmapFactory.decodeStream(is);
             setUserPhoto(bmp);
         } catch (IOException e) {
@@ -167,6 +140,23 @@ public class MainActivity extends BaseActivity {
     @UiThread
     void setUserPhoto(Bitmap photo){
         ivUserPhoto.setImageBitmap(photo);
+    }
+
+    @Override
+    public void renderUser(UserViewModel user) {
+        String greeting = "Hello, " + user.name() + "!";
+        tvUserGreeting.setText(greeting);
+        loadUserImage(user.photoPath());
+    }
+
+    @Override
+    public void renderCards(List<CardViewModel> cards) {
+        initCardViewPager(cards);
+    }
+
+    @Override
+    public void onError(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void initCardViewPager(List<CardViewModel> cardViewModels){
@@ -193,16 +183,10 @@ public class MainActivity extends BaseActivity {
                         rootView.setBackgroundColor((int) animator.getAnimatedValue()));
                 colorAnimation.start();
             }
-
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
+            public void onTabUnselected(TabLayout.Tab tab) {}
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
