@@ -3,6 +3,7 @@ package com.iuriirodyk.materialwallet.di.component;
 import com.iuriirodyk.materialwallet.di.module.ActivityModule;
 import com.iuriirodyk.materialwallet.di.module.CardModule;
 import com.iuriirodyk.materialwallet.di.scope.PerActivity;
+import com.iuriirodyk.materialwallet.ui.fragment.CardViewFragment;
 
 import dagger.Component;
 
@@ -15,5 +16,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, CardModule.class})
 public interface CardComponent extends ActivityComponent {
 
-    //fragment to inject
+    void inject(CardViewFragment cardViewFragment);
 }

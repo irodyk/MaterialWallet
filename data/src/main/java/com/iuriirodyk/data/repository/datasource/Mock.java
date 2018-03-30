@@ -13,7 +13,7 @@ import com.iuriirodyk.data.entity.UserEntity;
 final class Mock {
 
     static UserEntity userEntity(){
-        return UserEntity.create(Mock.USERNAME, PHOTO_THUMBNAIL_PATH, PHOTO_PATH);
+        return UserEntity.create(Mock.USERNAME, PHOTO_PATH);
     }
 
     static CardEntity cardEntity1(){
@@ -25,18 +25,18 @@ final class Mock {
     }
 
     static CardEntity cardEntity2(){
-        IssuerEntity issuerEntity = IssuerEntity.create(ISSUER_NAME[0], ISSUER_IMG[0]);
+        IssuerEntity issuerEntity = IssuerEntity.create(ISSUER_NAME[1], ISSUER_IMG[1]);
         return CardEntity.create(
-                HOLDER[0], PAN[0], EXPIRY[0], issuerEntity, CARD_IMG_PATH[0],
-                BALANCE_TOTAL[0], BALANCE_AVLBL[0], BALANCE_BLOCKED[0], CARD_CURRENCY[0]
+                HOLDER[1], PAN[1], EXPIRY[1], issuerEntity, CARD_IMG_PATH[1],
+                BALANCE_TOTAL[1], BALANCE_AVLBL[1], BALANCE_BLOCKED[1], CARD_CURRENCY[1]
         );
     }
 
     static CardEntity cardEntity3(){
-        IssuerEntity issuerEntity = IssuerEntity.create(ISSUER_NAME[0], ISSUER_IMG[0]);
+        IssuerEntity issuerEntity = IssuerEntity.create(ISSUER_NAME[2], ISSUER_IMG[2]);
         return CardEntity.create(
-                HOLDER[0], PAN[0], EXPIRY[0], issuerEntity, CARD_IMG_PATH[0],
-                BALANCE_TOTAL[0], BALANCE_AVLBL[0], BALANCE_BLOCKED[0], CARD_CURRENCY[0]
+                HOLDER[2], PAN[2], EXPIRY[2], issuerEntity, CARD_IMG_PATH[2],
+                BALANCE_TOTAL[2], BALANCE_AVLBL[2], BALANCE_BLOCKED[2], CARD_CURRENCY[2]
         );
     }
 
@@ -108,8 +108,7 @@ final class Mock {
 
     //User
     private static final String USERNAME = "Iurii Rodyk";
-    private static final String PHOTO_THUMBNAIL_PATH = "file:///android_asset/raw/user/user_photo_thumbnail.png";
-    private static final String PHOTO_PATH = "file:///android_asset/raw/user/user_photo.png";
+    private static final String PHOTO_PATH = "raw/user/user_photo.jpg";
 
     //Cards
     private static final String[] HOLDER = {
@@ -133,9 +132,9 @@ final class Mock {
             "TSB"
     };
     private static final String[] ISSUER_IMG = {
-            "file:///android_asset/raw/issuer/issuer_1.png",
-            "file:///android_asset/raw/issuer/issuer_2.png",
-            "file:///android_asset/raw/issuer/issuer_3.png"
+            "raw/issuer/issuer_1.png",
+            "raw/issuer/issuer_2.png",
+            "raw/issuer/issuer_3.png"
     };
     private static final String[] BALANCE_TOTAL = {
             "3400.35",
@@ -158,9 +157,9 @@ final class Mock {
             "EUR"
     };
     private static final String[] CARD_IMG_PATH = {
-            "file:///android_asset/raw/card/card_1.png",
-            "file:///android_asset/raw/card/card_2.png",
-            "file:///android_asset/raw/card/card_3.png"
+            "raw/card/card_1.png",
+            "raw/card/card_2.png",
+            "raw/card/card_3.png"
     };
 
 

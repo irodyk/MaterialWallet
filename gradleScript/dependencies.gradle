@@ -9,7 +9,6 @@ ext {
 
     //lib
     supportLibVersion = '27.1.0'
-    constraintVersion = '1.0.2'
     daggerVersion = '2.15'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
@@ -35,7 +34,7 @@ ext {
             appLib = [
                     appCompat               :    "com.android.support:appcompat-v7:${supportLibVersion}",
                     design                  :    "com.android.support:design:${supportLibVersion}",
-                    constraintLayout        :    "com.android.support.constraint:constraint-layout:${constraintVersion}",
+                    cardview                :    "com.android.support:cardview-v7:${supportLibVersion}",
                     dagger                  :    "com.google.dagger:dagger:${daggerVersion}",
                     butterknife             :    "com.jakewharton:butterknife:${butterKnifeVersion}",
                     rxJava                  :    "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",

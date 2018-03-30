@@ -17,11 +17,11 @@ public class UserEntityDataMapper implements Mapper<UserEntity, User> {
 
     @Override
     public User mapFromEntity(UserEntity entity) {
-        return User.create(entity.name(), entity.photoThumbnailPath(), entity.photoPath());
+        return User.create(entity.name(), entity.photoPath());
     }
 
     @Override
     public UserEntity mapToEntity(User user) {
-        return UserEntity.create(user.name(), user.photoThumbnailPath(), user.photoPath());
+        return UserEntity.create(user.name(), user.photoPath());
     }
 }

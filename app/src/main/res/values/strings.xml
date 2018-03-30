@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Material Wallet</string>
+    <string name="user_photo_description">User photo</string>
+    <string name="financial_health_status">Your income is well above liabilities this month.</string>
+    <string name="card_image">Card image</string>
+    <string name="ib_menu">Menu</string>
+    <string name="ib_search">Search</string>
 </resources>

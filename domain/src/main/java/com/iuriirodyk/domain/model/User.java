@@ -13,10 +13,9 @@ import io.reactivex.annotations.NonNull;
 public abstract class User {
 
     @NonNull public abstract String name();
-    @NonNull public abstract String photoThumbnailPath();
     @NonNull public abstract String photoPath();
 
-    public static User create(String name, String photoThumbnailPath, String photoPath) {
-        return new AutoValue_User(name, photoThumbnailPath, photoPath);
+    public static User create(String name, String photoPath) {
+        return new AutoValue_User(name, photoPath);
     }
 }

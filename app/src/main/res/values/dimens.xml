@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_left_margin">30dp</dimen>
+    <dimen name="card_view_user_info_left_margin">50dp</dimen>
+    <dimen name="card_view_top_margin">80dp</dimen>
+    <dimen name="user_greeting_text_size">24sp</dimen>
+    <dimen name="normal_text_size">20sp</dimen>
+    <dimen name="card_view_right_margin_text">80dp</dimen>
+    <dimen name="user_textview_margin_top">10dp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="user_textview_margin_top_increased">30dp</dimen>
+    <dimen name="user_cardview_margin_top">30dp</dimen>
+    <dimen name="cardview_card_margin">25dp</dimen>
+    <dimen name="icon_margin">10dp</dimen>
+</resources>
