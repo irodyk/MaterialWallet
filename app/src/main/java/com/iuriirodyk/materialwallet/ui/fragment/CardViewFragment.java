@@ -45,10 +45,7 @@ public class CardViewFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
 
-    @AfterViews
-    void showCard(){
         card = CardViewModel.fromExtras(getArguments());
         loadCardImage();
     }
@@ -66,6 +63,7 @@ public class CardViewFragment extends BaseFragment {
 
     @UiThread
     void setCardPhoto(Bitmap photo){
+        if(ivCard != null)
         ivCard.setImageBitmap(photo);
     }
 
