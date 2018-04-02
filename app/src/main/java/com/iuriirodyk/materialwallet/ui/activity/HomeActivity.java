@@ -87,12 +87,16 @@ public class HomeActivity extends BaseActivity implements HomeView {
         super.onCreate(savedInstanceState);
         getUserComponent().inject(this);
 
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setExitTransition(new Fade());
+
+        initData();
+    }
+
+    void initData(){
         presenter.setView(this);
         presenter.getCurrentUser();
         presenter.getEnrolledCards();
-
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-        getWindow().setExitTransition(new Fade());
     }
 
     @Override
