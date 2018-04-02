@@ -2,17 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="true"
-    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_layout"
     android:background="@color/colorBackground"
-    tools:context="com.iuriirodyk.materialwallet.ui.activity.MainActivity">
-
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    tools:context="com.iuriirodyk.materialwallet.ui.activity.HomeActivity">
 
     <ImageButton
         android:id="@+id/ib_menu"
@@ -39,15 +33,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
-        android:layout_alignParentEnd="true"
         android:background="@null"
+        android:layout_alignParentEnd="true"
         android:contentDescription="@string/ib_search"
         android:layout_margin="@dimen/icon_margin"/>
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_user_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:elevation="12dp"
         app:cardCornerRadius="40dp"
         android:layout_marginStart="@dimen/card_view_user_info_left_margin"
@@ -57,7 +51,7 @@
         android:thicknessRatio="1.9">
         <ImageView
             android:layout_height="80dp"
-            android:layout_width="80dp"
+            android:layout_width="match_parent"
             android:id="@+id/iv_user_photo"
             android:src="@drawable/user_default_image"
             android:layout_alignParentTop="true"
@@ -71,8 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/card_view_user_photo"
-        android:layout_marginStart="@dimen/card_view_user_info_left_margin"
-        android:layout_marginEnd="@dimen/card_view_right_margin_text">
+        android:layout_marginStart="@dimen/card_view_user_info_left_margin">
 
         <TextView
             android:id="@+id/tv_user_greeting"
@@ -102,14 +95,17 @@
 
     </RelativeLayout>
 
+
     <RelativeLayout
-        android:layout_below="@id/rl_texts_container"
-        android:layout_marginTop="@dimen/user_cardview_margin_top"
+        android:layout_toEndOf="@id/rl_texts_container"
+        android:gravity="center_vertical"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_dots"
+            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabBackground="@drawable/tab_selector"
@@ -118,6 +114,7 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_cards"
+            android:layout_centerVertical="true"
             android:layout_below="@id/tab_dots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -7,6 +7,7 @@ import com.iuriirodyk.data.entity.UserEntity;
 import com.iuriirodyk.domain.model.Card;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -49,9 +50,7 @@ public class LocalAndRemoteDataStore implements UserDataStore, CardDataStore, Tr
             List<TransactionEntity> transactionEntities = new ArrayList<>();
 
             //fetch transactions for given card number
-            for(int i = 0; i < 10; i++){
-                transactionEntities.add(Mock.transactionEntities()[i]);
-            }
+            transactionEntities.addAll(Arrays.asList(Mock.transactionEntities()));
 
             emitter.onNext(transactionEntities);
             emitter.onComplete();

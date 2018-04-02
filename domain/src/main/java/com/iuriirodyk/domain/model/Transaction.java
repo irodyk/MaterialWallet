@@ -16,13 +16,13 @@ public abstract class Transaction {
         INCOMING("Incoming"),
         OUTGOING("Outgoing");
 
-        String type;
+        final String type;
 
-        Type(String type) {
+        Type(final String type) {
             this.type = type;
         }
 
-        String type(){
+        public String type(){
             return type;
         }
     }

@@ -3,8 +3,7 @@ package com.iuriirodyk.materialwallet.di.component;
 import com.iuriirodyk.materialwallet.di.module.ActivityModule;
 import com.iuriirodyk.materialwallet.di.module.UserModule;
 import com.iuriirodyk.materialwallet.di.scope.PerActivity;
-import com.iuriirodyk.materialwallet.ui.activity.BaseActivity;
-import com.iuriirodyk.materialwallet.ui.activity.MainActivity;
+import com.iuriirodyk.materialwallet.ui.activity.HomeActivity;
 
 import dagger.Component;
 
@@ -17,5 +16,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
 public interface UserComponent extends ActivityComponent {
 
-    void inject(MainActivity activity);
+    void inject(HomeActivity activity);
 }

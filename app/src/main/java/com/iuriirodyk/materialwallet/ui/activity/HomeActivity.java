@@ -7,10 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.transition.Fade;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,9 +21,7 @@ import com.iuriirodyk.materialwallet.R;
 import com.iuriirodyk.materialwallet.di.component.ApplicationComponent;
 import com.iuriirodyk.materialwallet.di.component.CardComponent;
 import com.iuriirodyk.materialwallet.di.component.DaggerCardComponent;
-import com.iuriirodyk.materialwallet.di.component.DaggerTransactionComponent;
 import com.iuriirodyk.materialwallet.di.component.DaggerUserComponent;
-import com.iuriirodyk.materialwallet.di.component.TransactionComponent;
 import com.iuriirodyk.materialwallet.di.component.UserComponent;
 import com.iuriirodyk.materialwallet.presenter.HomePresenter;
 import com.iuriirodyk.materialwallet.ui.adapter.CardPagerAdapter;
@@ -48,12 +47,11 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-@EActivity(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements HomeView {
+@EActivity(R.layout.activity_home)
+public class HomeActivity extends BaseActivity implements HomeView {
 
     private UserComponent userComponent;
     private CardComponent cardComponent;
-    private TransactionComponent transactionComponent;
 
     @Inject HomePresenter presenter;
 
@@ -92,6 +90,9 @@ public class MainActivity extends BaseActivity implements HomeView {
         presenter.setView(this);
         presenter.getCurrentUser();
         presenter.getEnrolledCards();
+
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setExitTransition(new Fade());
     }
 
     @Override
@@ -196,6 +197,13 @@ public class MainActivity extends BaseActivity implements HomeView {
     }
 
     @Override
+    protected void onDestroy() {
+        presenter.dispose();
+        ivUserPhoto.setImageBitmap(null);
+        super.onDestroy();
+    }
+
+    @Override
     protected void initializeInjector(ApplicationComponent applicationComponent) {
         this.userComponent = DaggerUserComponent.builder()
                 .applicationComponent(getApplicationComponent())
@@ -203,11 +211,6 @@ public class MainActivity extends BaseActivity implements HomeView {
                 .build();
 
         this.cardComponent = DaggerCardComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(getActivityModule())
-                .build();
-
-        this.transactionComponent = DaggerTransactionComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .build();
@@ -219,9 +222,5 @@ public class MainActivity extends BaseActivity implements HomeView {
 
     public CardComponent getCardComponent() {
         return cardComponent;
-    }
-
-    public TransactionComponent getTransactionComponent() {
-        return transactionComponent;
     }
 }

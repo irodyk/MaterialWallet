@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_details_root_layout"
+    android:background="@color/colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/appbar" />
+
+    <com.iuriirodyk.materialwallet.ui.widget.VerticalViewPager
+        android:id="@+id/viewpager_card_details"
+        android:layout_below="@id/ib_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </com.iuriirodyk.materialwallet.ui.widget.VerticalViewPager>
+
+</RelativeLayout>

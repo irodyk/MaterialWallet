@@ -1,5 +1,8 @@
 package com.iuriirodyk.materialwallet.ui.fragment;
 
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,7 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.iuriirodyk.materialwallet.R;
-import com.iuriirodyk.materialwallet.ui.activity.MainActivity;
+import com.iuriirodyk.materialwallet.ui.activity.CardDetailsActivity_;
+import com.iuriirodyk.materialwallet.ui.activity.HomeActivity;
 import com.iuriirodyk.materialwallet.viewmodel.CardViewModel;
 
 import org.androidannotations.annotations.AfterViews;
@@ -37,8 +41,8 @@ public class CardViewFragment extends BaseFragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        ((HomeActivity)getActivity()).getCardComponent().inject(this);
         super.onActivityCreated(savedInstanceState);
-        ((MainActivity)getActivity()).getCardComponent().inject(this);
         setRetainInstance(true);
     }
 
@@ -63,12 +67,19 @@ public class CardViewFragment extends BaseFragment {
 
     @UiThread
     void setCardPhoto(Bitmap photo){
-        if(ivCard != null)
         ivCard.setImageBitmap(photo);
     }
 
     @Click(R.id.iv_card)
     void cardClick(){
+        Intent intent = new Intent(getActivity(), CardDetailsActivity_.class);
+        intent.putExtras(card.toExtras());
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+    }
 
+    @Override
+    public void onDestroyView() {
+        ivCard.setImageBitmap(null);
+        super.onDestroyView();
     }
 }

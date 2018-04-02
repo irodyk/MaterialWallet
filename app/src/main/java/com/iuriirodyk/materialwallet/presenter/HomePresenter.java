@@ -28,20 +28,15 @@ public class HomePresenter implements Presenter<HomeView> {
 
     private HomeView view;
 
-    private GetUserObserver getUserObserver;
-    private GetCardsObserver getCardsObserver;
-
     @Inject HomePresenter(){
-        getUserObserver = new GetUserObserver();
-        getCardsObserver = new GetCardsObserver();
     }
 
     public void getCurrentUser(){
-        getUser.execute(getUserObserver, null);
+        getUser.execute(new GetUserObserver(), null);
     }
 
     public void getEnrolledCards(){
-        getCards.execute(getCardsObserver, null);
+        getCards.execute(new GetCardsObserver(), null);
     }
 
     @Override
@@ -51,8 +46,9 @@ public class HomePresenter implements Presenter<HomeView> {
 
     @Override
     public void dispose() {
-        getUserObserver.dispose();
-        getCardsObserver.dispose();
+        view = null;
+        getCards.dispose();
+        getUser.dispose();
     }
 
     private final class GetUserObserver extends UseCaseObserver<User> {

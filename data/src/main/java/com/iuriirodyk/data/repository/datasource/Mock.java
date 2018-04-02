@@ -40,7 +40,7 @@ final class Mock {
         );
     }
 
-    static TransactionEntity[] transactionEntities(){
+    static TransactionEntity[] transactionEntities() {
         return new TransactionEntity[]{
                 transactionEntity1(),
                 transactionEntity2(),
@@ -48,7 +48,6 @@ final class Mock {
                 transactionEntity4(),
                 transactionEntity5(),
                 transactionEntity6(),
-                transactionEntity7(),
                 transactionEntity7(),
                 transactionEntity8(),
                 transactionEntity9(),
@@ -247,8 +246,9 @@ final class Mock {
             "19.03.2018",
             "19.03.2018",
             "19.03.2018",
+            "19.03.2018",
     };
-    private static final CardEntity[] CARD_ENTITIES = {
+    private static final CardEntity[] CARD_ENTITIES = new CardEntity[]{
             cardEntity1(),
             cardEntity1(),
             cardEntity1(),

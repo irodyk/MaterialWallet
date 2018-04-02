@@ -31,8 +31,8 @@ public class TransactionEntityDataMapper implements Mapper<TransactionEntity, Tr
         Card card = Card.create(e.card().holder(), e.card().pan(), e.card().expiry(),
                 issuer, e.card().cardImagePath(), e.card().balanceTotal(),
                 e.card().balanceAvlble(), e.card().balanceBlocked(), e.currency());
-        return Transaction.create(e.transId(), Transaction.Type.valueOf(e.type()), e.merchant(), e.amount(), e.currency(),
-                e.balanceAfter(), e.date(), card);
+        return Transaction.create(e.transId(), Transaction.Type.valueOf(e.type().toUpperCase()),
+                e.merchant(), e.amount(), e.currency(), e.balanceAfter(), e.date(), card);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TransactionEntityDataMapper implements Mapper<TransactionEntity, Tr
         CardEntity card = CardEntity.create(e.card().holder(), e.card().pan(), e.card().expiry(),
                 issuerEntity, e.card().cardImagePath(), e.card().balanceTotal(),
                 e.card().balanceAvlble(), e.card().balanceBlocked(), e.currency());
-        return TransactionEntity.create(e.transId(), e.type().name(), e.merchant(), e.amount(), e.currency(),
+        return TransactionEntity.create(e.transId(), e.type().type(), e.merchant(), e.amount(), e.currency(),
                 e.balanceAfter(), e.date(), card);
     }
 

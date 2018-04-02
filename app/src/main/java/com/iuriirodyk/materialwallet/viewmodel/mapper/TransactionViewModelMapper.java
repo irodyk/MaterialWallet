@@ -40,7 +40,7 @@ public class TransactionViewModelMapper implements Mapper<TransactionViewModel, 
         Card card = Card.create(e.card().holder(), e.card().pan(), e.card().expiry(),
                 issuer, e.card().cardImagePath(), e.card().balanceTotal(),
                 e.card().balanceAvlble(), e.card().balanceBlocked(), e.currency());
-        return Transaction.create(e.transId(), Transaction.Type.valueOf(e.type().name()), e.merchant(),
+        return Transaction.create(e.transId(), Transaction.Type.valueOf(e.type().type()), e.merchant(),
                 e.amount(), e.currency(), e.balanceAfter(), e.date(), card);
     }
 
@@ -53,7 +53,7 @@ public class TransactionViewModelMapper implements Mapper<TransactionViewModel, 
         CardViewModel card = CardViewModel.create(e.card().holder(), e.card().pan(), e.card().expiry(),
                 issuerEntity, e.card().cardImagePath(), e.card().balanceTotal(),
                 e.card().balanceAvlble(), e.card().balanceBlocked(), e.currency());
-        return TransactionViewModel.create(e.transId(), TransactionViewModel.Type.valueOf(e.type().name()),
+        return TransactionViewModel.create(e.transId(), TransactionViewModel.Type.valueOf(e.type().type().toUpperCase()),
                 e.merchant(), e.amount(), e.currency(), e.balanceAfter(), e.date(), card);
     }
 }
